@@ -5,7 +5,6 @@ ASSIGNMENT 1
 
 Tim Solig 
 Viktor Hultsten
-
 ------------------------------------------------
 
 -}
