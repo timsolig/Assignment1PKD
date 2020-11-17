@@ -6,7 +6,6 @@ ASSIGNMENT 1
 Tim Solig 
 Viktor Hultsten
 ------------------------------------------------
-
 -}
 
 
@@ -26,29 +25,131 @@ type WordTally = [(String, Int)]
 type Pairs = [(String, String)]
 type PairsTally = [((String, String), Int)]
 
+
+
+
+
+
+
+
+
+
+
 -- DO NOT CHANGE THE TYPE SIGNATURES FOR THESE FUNCTIONS
 
+
+
+{- wordCount arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
 wordCount :: Document -> WordTally
 wordCount = undefined  -- remove "undefined" and write your function here
 
+
+
+
+{- adjacentPairs arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
 adjacentPairs :: Document -> Pairs
 adjacentPairs = undefined  -- remove "undefined" and write your function here
+
+
+
+
+{- initialPairs arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
+
+
+
 
 initialPairs :: Document -> Pairs
 initialPairs = undefined  -- remove "undefined" and write your function here
 
+{- finalPairs arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
+
 finalPairs :: Document -> Pairs
 finalPairs = undefined  -- remove "undefined" and write your function here
+
+
+
+
+
+{- pairsCount arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
 
 pairsCount :: Pairs -> PairsTally
 pairsCount = undefined  -- remove "undefined" and write your function here
 
 
+
+{- neighbours arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
 neighbours :: PairsTally -> String -> WordTally
 neighbours = undefined  -- remove "undefined" and write your function here
 
+
+
+
+{- mostCommonNeighbhour arguments
+     A brief human-readable description of the purpose of the function.
+     PRE:  ... precondition on the arguments, if any ...
+     RETURNS: ... description of the result, in terms of the arguments ...
+     SIDE EFFECTS: ... side effects, if any, including exceptions ...
+     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+-}
 mostCommonNeighbour :: PairsTally -> String -> Maybe String
 mostCommonNeighbour = undefined  -- remove "undefined" and write your function here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
