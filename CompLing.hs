@@ -18,6 +18,8 @@ module CompLing(wordCount, adjacentPairs, pairsCount, neighbours, mostCommonNeig
 import Test.HUnit -- provides testing framework
 import PandP      -- provide sample text to play with (variable austin)
 
+
+
 -- DO NOT CHANGE THESE TYPES
 type Sentence = [String]
 type Document = [Sentence]
@@ -28,23 +30,15 @@ type PairsTally = [((String, String), Int)]
 
 
 
-
-
-
-
-
-
-
 -- DO NOT CHANGE THE TYPE SIGNATURES FOR THESE FUNCTIONS
 
 
-
 {- wordCount arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE: 
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 wordCount :: Document -> WordTally
 wordCount = undefined  -- remove "undefined" and write your function here
@@ -53,11 +47,11 @@ wordCount = undefined  -- remove "undefined" and write your function here
 
 
 {- adjacentPairs arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 adjacentPairs :: Document -> Pairs
 adjacentPairs = undefined  -- remove "undefined" and write your function here
@@ -66,11 +60,11 @@ adjacentPairs = undefined  -- remove "undefined" and write your function here
 
 
 {- initialPairs arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 
 
@@ -80,11 +74,10 @@ initialPairs :: Document -> Pairs
 initialPairs = undefined  -- remove "undefined" and write your function here
 
 {- finalPairs arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 
 finalPairs :: Document -> Pairs
@@ -95,11 +88,11 @@ finalPairs = undefined  -- remove "undefined" and write your function here
 
 
 {- pairsCount arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 
 pairsCount :: Pairs -> PairsTally
@@ -108,11 +101,11 @@ pairsCount = undefined  -- remove "undefined" and write your function here
 
 
 {- neighbours arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS: 
+     EXAMPLES: 
 -}
 neighbours :: PairsTally -> String -> WordTally
 neighbours = undefined  -- remove "undefined" and write your function here
@@ -121,11 +114,11 @@ neighbours = undefined  -- remove "undefined" and write your function here
 
 
 {- mostCommonNeighbhour arguments
-     A brief human-readable description of the purpose of the function.
-     PRE:  ... precondition on the arguments, if any ...
-     RETURNS: ... description of the result, in terms of the arguments ...
-     SIDE EFFECTS: ... side effects, if any, including exceptions ...
-     EXAMPLES: ... especially if useful to highlight delicate issues; also consider including counter-examples ...
+
+     PRE:  
+     RETURNS: 
+     SIDE EFFECTS:
+     EXAMPLES: 
 -}
 mostCommonNeighbour :: PairsTally -> String -> Maybe String
 mostCommonNeighbour = undefined  -- remove "undefined" and write your function here
