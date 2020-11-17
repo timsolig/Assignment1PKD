@@ -1,3 +1,22 @@
+
+
+
+{-
+------------------------------------------------
+PROGRAMKONSTRUKTION & DATASTRUKTURER HT2020
+ASSIGNMENT 1
+
+Tim Solig 
+Viktor Hultsten
+
+------------------------------------------------
+
+-}
+
+
+
+
+
 -- DO NOT MODIFY THE FOLLOWING LINE
 module CompLing(wordCount, adjacentPairs, pairsCount, neighbours, mostCommonNeighbour) where
 
