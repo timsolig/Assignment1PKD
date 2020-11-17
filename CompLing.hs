@@ -1,6 +1,3 @@
-
-
-
 {-
 ------------------------------------------------
 PROGRAMKONSTRUKTION & DATASTRUKTURER HT2020
