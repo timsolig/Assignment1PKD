@@ -20,7 +20,7 @@ Viktor Hultsten
 
  **Push!
 
- -}
+-}
 
 
 
@@ -78,12 +78,12 @@ adjacentPairs = undefined  -- remove "undefined" and write your function here
      SIDE EFFECTS: 
      EXAMPLES: 
 -}
-
-
-
-
 initialPairs :: Document -> Pairs
 initialPairs = undefined  -- remove "undefined" and write your function here
+
+
+
+
 
 {- finalPairs arguments
      PRE:  
@@ -91,7 +91,6 @@ initialPairs = undefined  -- remove "undefined" and write your function here
      SIDE EFFECTS: 
      EXAMPLES: 
 -}
-
 finalPairs :: Document -> Pairs
 finalPairs = undefined  -- remove "undefined" and write your function here
 
@@ -106,7 +105,6 @@ finalPairs = undefined  -- remove "undefined" and write your function here
      SIDE EFFECTS: 
      EXAMPLES: 
 -}
-
 pairsCount :: Pairs -> PairsTally
 pairsCount = undefined  -- remove "undefined" and write your function here
 
