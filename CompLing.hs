@@ -44,6 +44,12 @@ type PairsTally = [((String, String), Int)]
 
 
 
+
+
+
+
+
+
 -- DO NOT CHANGE THE TYPE SIGNATURES FOR THESE FUNCTIONS
 
 
@@ -58,6 +64,18 @@ wordCount :: Document -> WordTally
 wordCount = undefined  -- remove "undefined" and write your function here
 
 
+countFirstElement :: Sentence -> Integer
+countFirstElement [] = 0
+countFirstElement (x:xs) = foo x (x:xs)
+
+foo :: String -> Sentence -> Integer
+foo _ [] = 0
+foo e (x:xs)
+     | e == x = 1 + foo e xs
+     | otherwise = foo e xs
+
+
+--["a", "rose", "is", "a", "rose"]
 
 
 {- adjacentPairs arguments
