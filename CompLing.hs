@@ -11,6 +11,18 @@ Viktor Hultsten
 
 
 
+{-GITBHUB INSTRUCTION
+ **Stage changes with "+"
+
+ **Write message
+
+ **Commit with "✔"
+
+ **Push!
+
+ -}
+
+
 
 -- DO NOT MODIFY THE FOLLOWING LINE
 module CompLing(wordCount, adjacentPairs, pairsCount, neighbours, mostCommonNeighbour) where
