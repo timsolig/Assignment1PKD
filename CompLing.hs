@@ -11,6 +11,8 @@ Viktor Hultsten
 
 --LÄGGER TILL EN KOMMENTAR FÖR ATT TESTA
 
+-- LÄgger till en till kommentar 
+
 {-GITBHUB INSTRUCTION
  **Stage changes with "+"
 
