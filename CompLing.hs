@@ -9,9 +9,6 @@ Viktor Hultsten
 -}
 
 
---LÄGGER TILL EN KOMMENTAR FÖR ATT TESTA
-
--- LÄgger till en till kommentar 2
 
 {-GITBHUB INSTRUCTION
  **Stage changes with "+"
@@ -99,7 +96,7 @@ foo e (x:xs)
 
 
 
-{- adjacentPairs arguments
+{- adjacentPairs document
      Yields a list of all adjacent pairs of words appearing in the document, with duplicates present.
      RETURNS: A list of all adjacent pairs of words, including duplicates
      EXAMPLES: 
@@ -110,9 +107,8 @@ foo e (x:xs)
                          == [("time","for"),("for","a"),("a","break"),("not","for"),("for","a"),("a","while")]
           
           adjacentPairs [] == []
-
-
 -}
+
 adjacentPairs :: Document -> Pairs
 adjacentPairs [] = []
 adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
@@ -124,17 +120,28 @@ adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
 
 
 
+--drop (length list -2 ) == sista två
+--take 2 list
 
 
-{- initialPairs arguments
+
+
+
+
+
+
+{- initialPairs Document
      Creates a list of all pairs of words appearing at the start of sentences in the document, with duplicates present.
-     PRE:  
+     PRE: length of sentences in Document are greather than 1 (solved)
      RETURNS: 
      SIDE EFFECTS: 
      EXAMPLES: 
 -}
 initialPairs :: Document -> Pairs
-initialPairs = undefined  -- remove "undefined" and write your function here
+initialPairs [] = []
+initialPairs ([_]:xs) = initialPairs xs
+initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
+
 
 
 
@@ -148,7 +155,14 @@ initialPairs = undefined  -- remove "undefined" and write your function here
      EXAMPLES: 
 -}
 finalPairs :: Document -> Pairs
-finalPairs = undefined  -- remove "undefined" and write your function here
+finalPairs [] = []
+finalPairs (x:lst) = initialPairs (drop (length [x] -2) [x]) ++ finalPairs lst
+
+
+
+
+
+
 
 
 
@@ -166,6 +180,12 @@ pairsCount = undefined  -- remove "undefined" and write your function here
 
 
 
+
+
+
+
+
+
 {- neighbours arguments
      Takes  a  tally  of pairs, such as computed by thepairsCountfunction, 
      and a word and gives all the wordsthat appear with that word in the tally of pairs along with the number of occurrences.
@@ -176,6 +196,10 @@ pairsCount = undefined  -- remove "undefined" and write your function here
 -}
 neighbours :: PairsTally -> String -> WordTally
 neighbours = undefined  -- remove "undefined" and write your function here
+
+
+
+
 
 
 
