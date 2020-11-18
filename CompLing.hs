@@ -61,32 +61,67 @@ type PairsTally = [((String, String), Int)]
      EXAMPLES: 
 -}
 wordCount :: Document -> WordTally
-wordCount = undefined  -- remove "undefined" and write your function here
+wordCount [] = []
+wordCount (x:xs) =  wordCount xs ++ [(head x, countFirstElement x)]
 
 
-countFirstElement :: Sentence -> Integer
+
+
+foo2 :: String -> Sentence -> Sentence
+foo2 _ [] = []
+foo2 e (x:xs) 
+     | e == x = foo2 e xs
+     | otherwise = x : foo2 e xs 
+
+
+countFirstElement :: Sentence -> Int
 countFirstElement [] = 0
 countFirstElement (x:xs) = foo x (x:xs)
 
-foo :: String -> Sentence -> Integer
+foo :: String -> Sentence -> Int
 foo _ [] = 0
 foo e (x:xs)
      | e == x = 1 + foo e xs
      | otherwise = foo e xs
 
-
+--[["a", "rose", "is", "a", "rose"], ["but", "so", "is", "a", "rose"], ["a", "rose", "is", "a", "rose"]]
 --["a", "rose", "is", "a", "rose"]
 
 
+
+
+
+
+
+
+
+
+
+
+
 {- adjacentPairs arguments
-     Yields a list of all adjacent pairs of words appearing in the document, with duplicates present
-     PRE:  
-     RETURNS: 
-     SIDE EFFECTS: 
+     Yields a list of all adjacent pairs of words appearing in the document, with duplicates present.
+     RETURNS: A list of all adjacent pairs of words, including duplicates
      EXAMPLES: 
+          adjacentPairs [["This", "is", "an", "example"],["It", "includes", "two", "sentences"]]
+                         ==   [("This","is"),("is","an"),("an","example"),("It","includes"),("includes","two"),("two","sentences")]
+          
+          adjacentPairs [["time", "for", "a", "break"], ["not", "for", "a", "while"]]
+                         == [("time","for"),("for","a"),("a","break"),("not","for"),("for","a"),("a","while")]
+          
+          adjacentPairs [] == []
+
+
 -}
 adjacentPairs :: Document -> Pairs
-adjacentPairs = undefined  -- remove "undefined" and write your function here
+adjacentPairs [] = []
+adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
+     where 
+          foo :: [String] -> Pairs
+          foo [] = []
+          foo [x] = []
+          foo (x:xs) = (x, head xs) : foo xs
+
 
 
 
