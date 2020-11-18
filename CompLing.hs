@@ -46,7 +46,7 @@ type PairsTally = [((String, String), Int)]
 
 
 {- wordCount arguments
-
+     Computes a tally of all the distinct words appearing in the document.
      PRE: 
      RETURNS: 
      SIDE EFFECTS: 
@@ -59,7 +59,7 @@ wordCount = undefined  -- remove "undefined" and write your function here
 
 
 {- adjacentPairs arguments
-
+     Yields a list of all adjacent pairs of words appearing in the document, with duplicates present
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -72,7 +72,7 @@ adjacentPairs = undefined  -- remove "undefined" and write your function here
 
 
 {- initialPairs arguments
-
+     Creates a list of all pairs of words appearing at the start of sentences in the document, with duplicates present.
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -86,6 +86,7 @@ initialPairs = undefined  -- remove "undefined" and write your function here
 
 
 {- finalPairs arguments
+     A list of all pairs of words appearing at the end of sentences in the document, with duplicates present.
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -99,7 +100,7 @@ finalPairs = undefined  -- remove "undefined" and write your function here
 
 
 {- pairsCount arguments
-
+     Computes a tally of all pairs.
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -111,7 +112,8 @@ pairsCount = undefined  -- remove "undefined" and write your function here
 
 
 {- neighbours arguments
-
+     Takes  a  tally  of pairs, such as computed by thepairsCountfunction, 
+     and a word and gives all the wordsthat appear with that word in the tally of pairs along with the number of occurrences.
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -124,7 +126,7 @@ neighbours = undefined  -- remove "undefined" and write your function here
 
 
 {- mostCommonNeighbhour arguments
-
+     Returns the word that occurs most frequently with a given word, based on a tally of pairs.
      PRE:  
      RETURNS: 
      SIDE EFFECTS:
