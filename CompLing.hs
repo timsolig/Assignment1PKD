@@ -233,7 +233,14 @@ isEqual (a,b) (c,d) = (a==c && b == d) || (a == d && b == c)
      EXAMPLES: 
 -}
 neighbours :: PairsTally -> String -> WordTally
-neighbours = undefined  -- remove "undefined" and write your function here
+neighbours [] _ = []
+neighbours (((a,b),n):xs) str
+     | a == str = (b, n) : neighbours xs str
+     | b == str = (a, n) : neighbours xs str
+     | otherwise = neighbours xs str
+
+
+
 
 
 
