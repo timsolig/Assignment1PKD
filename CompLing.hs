@@ -30,16 +30,12 @@ import Test.HUnit -- provides testing framework
 import PandP      -- provide sample text to play with (variable austin)
 
 
-
 -- DO NOT CHANGE THESE TYPES
 type Sentence = [String]
 type Document = [Sentence]
 type WordTally = [(String, Int)]
 type Pairs = [(String, String)]
 type PairsTally = [((String, String), Int)]
-
-
-
 
 
 
@@ -188,7 +184,31 @@ finalPairs (x:lst) = foo7 x ++ finalPairs lst
 -}
 
 pairsCount :: Pairs -> PairsTally
-pairsCount = undefined
+pairsCount [] = []
+pairsCount (x:xs) = countElement' x (x:xs) : pairsCount (removeElement' x xs)
+-- pairsCount (x:xs) = countElement' x (x:xs) : pairsCount ()
+
+
+
+
+
+
+
+{- KVAR ATT GÖRA: removeElement ska ta bort "spegelbilden" -}
+
+
+
+
+
+
+
+removeElement' :: (Eq a) => (a,a) -> [(a,a)] -> [(a,a)]
+removeElement' el lst = filter (/= el) lst
+
+--removeElement' el lst = [x| x <- lst, x /= el, x/= reverse el] 
+--removeElement' el lst = filter (/= el) (filter (/= (reverse el)) lst)
+
+
 
 countElement' :: (Eq a) => (a, a) -> [(a,a)] -> ((a,a), Int)
 countElement' e lst = countElementAcc' e 0 lst 
@@ -238,7 +258,6 @@ neighbours (((a,b),n):xs) str
      | a == str = (b, n) : neighbours xs str
      | b == str = (a, n) : neighbours xs str
      | otherwise = neighbours xs str
-
 
 
 
