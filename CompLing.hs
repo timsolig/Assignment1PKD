@@ -59,7 +59,7 @@ type PairsTally = [((String, String), Int)]
 -}
 wordCount :: Document -> WordTally
 wordCount [] = []
-wordCount (x:xs) =  wordCount xs ++ [(head x, countFirstElement x)]
+wordCount (x:xs) =  wordCount xs ++ [(head x, countFirstElement x )]{-+wordcount xs i snd?-}
 
 
 
@@ -83,10 +83,7 @@ foo e (x:xs)
 
 --[["a", "rose", "is", "a", "rose"], ["but", "so", "is", "a", "rose"], ["a", "rose", "is", "a", "rose"]]
 --["a", "rose", "is", "a", "rose"]
-
-
-
-
+--[["mr","bennet","made","no","answer"],["do","you","not","want","to","know","who","has","taken","it"],["cried","his","wife","impatiently"],["you"],["want","to","tell","me","and","i","have","no","objection","to","hearing","it"]]
 
 
 
@@ -120,12 +117,6 @@ adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
 
 
 
---drop (length list -2 ) == sista två
---take 2 list
-
-
-
-
 
 
 
@@ -147,6 +138,8 @@ initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
 
 
 
+
+
 {- finalPairs arguments
      A list of all pairs of words appearing at the end of sentences in the document, with duplicates present.
      PRE:  
@@ -156,7 +149,14 @@ initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
 -}
 finalPairs :: Document -> Pairs
 finalPairs [] = []
-finalPairs (x:lst) = initialPairs (drop (length [x] -2) [x]) ++ finalPairs lst
+finalPairs (x:lst) = foo7 x ++ finalPairs lst
+     where
+          foo7 :: Sentence -> Pairs 
+          foo7 [] = []
+          foo7 lst
+               | null lst || length lst == 1 = []
+               | otherwise = [(lst !! (length lst -2), lst !! (length lst - 1))]
+
 
 
 
@@ -187,7 +187,7 @@ pairsCount = undefined  -- remove "undefined" and write your function here
 
 
 {- neighbours arguments
-     Takes  a  tally  of pairs, such as computed by thepairsCountfunction, 
+     Takes  a  tally  of pairs, such as computed by the pairsCount function, 
      and a word and gives all the wordsthat appear with that word in the tally of pairs along with the number of occurrences.
      PRE:  
      RETURNS: 
