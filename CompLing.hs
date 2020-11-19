@@ -57,37 +57,41 @@ type PairsTally = [((String, String), Int)]
      SIDE EFFECTS: 
      EXAMPLES: 
 -}
+
 wordCount :: Document -> WordTally
-wordCount [] = []
-wordCount (x:xs) =  wordCount xs ++ [(head x, countFirstElement x )]{-+wordcount xs i snd?-}
+wordCount doc = wordCountAcc (concat doc)
+
+wordCountAcc :: Sentence -> WordTally
+wordCountAcc [] = []
+wordCountAcc doc@(x:xs) = 
+     countElement x doc : wordCountAcc (removeElement x doc)
 
 
 
 
-foo2 :: String -> Sentence -> Sentence
-foo2 _ [] = []
-foo2 e (x:xs) 
-     | e == x = foo2 e xs
-     | otherwise = x : foo2 e xs 
+-- wordCount'' :: Document -> WordTally
+-- wordCount'' [] = []
+-- wordCount'' doc = wordCount'' [removeElement (head doc) doc] ++ [(head doc), countElement (head doc) doc)]
 
 
-countFirstElement :: Sentence -> Int
-countFirstElement [] = 0
-countFirstElement (x:xs) = foo x (x:xs)
+{-
+removeElement :: String -> Sentence -> Sentence
+removeElement _ [] = []
+removeElement e (x:xs) 
+     | e == x = removeElement e xs
+     | otherwise = x : removeElement e xs -}
 
-foo :: String -> Sentence -> Int
-foo _ [] = 0
-foo e (x:xs)
-     | e == x = 1 + foo e xs
-     | otherwise = foo e xs
+removeElement el lst = filter (/= el) lst
+removeElement :: String -> Sentence -> Sentence
 
---[["a", "rose", "is", "a", "rose"], ["but", "so", "is", "a", "rose"], ["a", "rose", "is", "a", "rose"]]
---["a", "rose", "is", "a", "rose"]
---[["mr","bennet","made","no","answer"],["do","you","not","want","to","know","who","has","taken","it"],["cried","his","wife","impatiently"],["you"],["want","to","tell","me","and","i","have","no","objection","to","hearing","it"]]
+countElement :: String -> Sentence -> (String, Int)
+countElement e lst = countElementAcc e 0 lst 
 
-
-
-
+countElementAcc :: String -> Int -> Sentence -> (String, Int)
+countElementAcc e acc [] = (e, acc)
+countElementAcc e acc (x:xs)
+     | e == x = countElementAcc e (acc + 1) xs
+     | otherwise = countElementAcc e acc xs
 
 
 
@@ -115,6 +119,7 @@ adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
           foo [x] = []
           foo (x:xs) = (x, head xs) : foo xs
 
+--KLAR--
 
 
 
@@ -132,7 +137,7 @@ initialPairs :: Document -> Pairs
 initialPairs [] = []
 initialPairs ([_]:xs) = initialPairs xs
 initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
-
+--KLAR--
 
 
 
@@ -149,14 +154,15 @@ initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
 -}
 finalPairs :: Document -> Pairs
 finalPairs [] = []
+-- finalParis (x:lst) = initialPairs (reverse x) ++ finalPairs lst
 finalPairs (x:lst) = foo7 x ++ finalPairs lst
      where
-          foo7 :: Sentence -> Pairs 
+          foo7 :: Sentence -> Pairs
           foo7 [] = []
           foo7 lst
-               | null lst || length lst == 1 = []
+               | length lst == 1 = []
                | otherwise = [(lst !! (length lst -2), lst !! (length lst - 1))]
-
+--KLAR--
 
 
 
