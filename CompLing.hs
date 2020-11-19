@@ -81,13 +81,18 @@ removeElement e (x:xs)
      | e == x = removeElement e xs
      | otherwise = x : removeElement e xs -}
 
-removeElement el lst = filter (/= el) lst
-removeElement :: String -> Sentence -> Sentence
 
-countElement :: String -> Sentence -> (String, Int)
+removeElement :: String -> Sentence -> Sentence
+removeElement el lst = filter (/= el) lst
+
+
+
+countElement :: (Eq a) => a -> [a] -> (a, Int)
+-- countElement :: String -> Sentence -> (String, Int)
 countElement e lst = countElementAcc e 0 lst 
 
-countElementAcc :: String -> Int -> Sentence -> (String, Int)
+countElementAcc :: (Eq a) => a -> Int -> [a] -> (a, Int)
+-- countElementAcc :: String -> Int -> Sentence -> (String, Int)
 countElementAcc e acc [] = (e, acc)
 countElementAcc e acc (x:xs)
      | e == x = countElementAcc e (acc + 1) xs
@@ -176,13 +181,40 @@ finalPairs (x:lst) = foo7 x ++ finalPairs lst
 
 {- pairsCount arguments
      Computes a tally of all pairs.
-     PRE:  
+     PRE:       
      RETURNS: 
      SIDE EFFECTS: 
-     EXAMPLES: 
+     EXAMPLES:
 -}
+
 pairsCount :: Pairs -> PairsTally
-pairsCount = undefined  -- remove "undefined" and write your function here
+pairsCount = undefined
+
+countElement' :: (Eq a) => (a, a) -> [(a,a)] -> ((a,a), Int)
+countElement' e lst = countElementAcc' e 0 lst 
+
+-- countElementAcc' :: (Eq a) => (a, a) -> Int -> [a] -> (a, Int)
+-- countElementAcc :: String -> Int -> Sentence -> (String, Int)
+countElementAcc' :: (Eq a, Num t) => (a, a) -> t -> [(a, a)] -> ((a, a), t)
+countElementAcc' e acc [] = (e, acc)
+countElementAcc' e acc (x:xs)
+     | isEqual e x = countElementAcc' e (acc + 1) xs
+     | otherwise = countElementAcc' e acc xs
+
+
+--LEVEL TVÅ - IDÈ GÖRA OM ISEQUAL OCH COUNTACC FÖR BÅDA!!
+
+-- isEqual :: (Eq a) => (a, a) -> (a, a) -> Bool
+isEqual (a,b) (c,d) = (a==c && b == d) || (a == d && b == c)
+
+
+
+--[("hej","da"), ("da","heja"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da")]
+
+
+
+
+
 
 
 
