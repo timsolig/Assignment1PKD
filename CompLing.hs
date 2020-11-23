@@ -63,32 +63,15 @@ wordCountAcc doc@(x:xs) =
      countElement x doc : wordCountAcc (removeElement x doc)
 
 
-
-
--- wordCount'' :: Document -> WordTally
--- wordCount'' [] = []
--- wordCount'' doc = wordCount'' [removeElement (head doc) doc] ++ [(head doc), countElement (head doc) doc)]
-
-
-{-
-removeElement :: String -> Sentence -> Sentence
-removeElement _ [] = []
-removeElement e (x:xs) 
-     | e == x = removeElement e xs
-     | otherwise = x : removeElement e xs -}
-
-
 removeElement :: String -> Sentence -> Sentence
 removeElement el lst = filter (/= el) lst
 
 
 
 countElement :: (Eq a) => a -> [a] -> (a, Int)
--- countElement :: String -> Sentence -> (String, Int)
 countElement e lst = countElementAcc e 0 lst 
 
 countElementAcc :: (Eq a) => a -> Int -> [a] -> (a, Int)
--- countElementAcc :: String -> Int -> Sentence -> (String, Int)
 countElementAcc e acc [] = (e, acc)
 countElementAcc e acc (x:xs)
      | e == x = countElementAcc e (acc + 1) xs
@@ -185,36 +168,19 @@ finalPairs (x:lst) = foo7 x ++ finalPairs lst
 
 pairsCount :: Pairs -> PairsTally
 pairsCount [] = []
-pairsCount (x:xs) = countElement' x (x:xs) : pairsCount (removeElement' x xs)
--- pairsCount (x:xs) = countElement' x (x:xs) : pairsCount ()
+pairsCount (x:xs) = countElement' x (x:xs) : pairsCount (removeElement'' x xs)
 
-
-
-
-
-
-
-{- KVAR ATT GÖRA: removeElement ska ta bort "spegelbilden" -}
-
-
-
-
-
-
-
-removeElement' :: (Eq a) => (a,a) -> [(a,a)] -> [(a,a)]
-removeElement' el lst = filter (/= el) lst
-
---removeElement' el lst = [x| x <- lst, x /= el, x/= reverse el] 
---removeElement' el lst = filter (/= el) (filter (/= (reverse el)) lst)
-
+removeElement'' :: Eq a => (a, a) -> [(a, a)] -> [(a, a)]
+removeElement'' _ [] = []
+removeElement'' el (x:xs)
+     | isEqual el x = removeElement'' el xs
+     | otherwise = x : removeElement'' el xs
 
 
 countElement' :: (Eq a) => (a, a) -> [(a,a)] -> ((a,a), Int)
 countElement' e lst = countElementAcc' e 0 lst 
 
--- countElementAcc' :: (Eq a) => (a, a) -> Int -> [a] -> (a, Int)
--- countElementAcc :: String -> Int -> Sentence -> (String, Int)
+
 countElementAcc' :: (Eq a, Num t) => (a, a) -> t -> [(a, a)] -> ((a, a), t)
 countElementAcc' e acc [] = (e, acc)
 countElementAcc' e acc (x:xs)
@@ -224,14 +190,8 @@ countElementAcc' e acc (x:xs)
 
 --LEVEL TVÅ - IDÈ GÖRA OM ISEQUAL OCH COUNTACC FÖR BÅDA!!
 
--- isEqual :: (Eq a) => (a, a) -> (a, a) -> Bool
+isEqual :: (Eq a) => (a, a) -> (a, a) -> Bool
 isEqual (a,b) (c,d) = (a==c && b == d) || (a == d && b == c)
-
-
-
---[("hej","da"), ("da","heja"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da"), ("hej","da")]
-
-
 
 
 
@@ -246,7 +206,7 @@ isEqual (a,b) (c,d) = (a==c && b == d) || (a == d && b == c)
 
 {- neighbours arguments
      Takes  a  tally  of pairs, such as computed by the pairsCount function, 
-     and a word and gives all the wordsthat appear with that word in the tally of pairs along with the number of occurrences.
+     and a word and gives all the words that appear with that word in the tally of pairs along with the number of occurrences.
      PRE:  
      RETURNS: 
      SIDE EFFECTS: 
@@ -276,16 +236,17 @@ neighbours (((a,b),n):xs) str
      EXAMPLES: 
 -}
 mostCommonNeighbour :: PairsTally -> String -> Maybe String
-mostCommonNeighbour = undefined  -- remove "undefined" and write your function here
+mostCommonNeighbour tally str = searchFun str tally 0 ""
 
 
+searchFun _ [] 0 _ = Nothing
+searchFun _ [] _ maxWord = Just maxWord
+searchFun str (((a,b),num):xs) maxNum maxWord
+     | str == a && num > maxNum = searchFun str xs num b
+     | str == b && num > maxNum = searchFun str xs num a
+     | otherwise = searchFun str xs maxNum maxWord
 
-
-
-
-
-
-
+--[(("bear","big"),2),(("big","dog"),1),(("bear","animal"),2)] "big"
 
 
 
