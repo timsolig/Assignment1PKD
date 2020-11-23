@@ -1,3 +1,4 @@
+
 {-
 ------------------------------------------------
 PROGRAMKONSTRUKTION & DATASTRUKTURER HT2020
@@ -10,25 +11,11 @@ Viktor Hultsten
 
 
 
-{-GITBHUB INSTRUCTION
- **Stage changes with "+"
-
- **Write message
-
- **Commit with "✔"
-
- **Push!
-
--}
-
-
-
 -- DO NOT MODIFY THE FOLLOWING LINE
 module CompLing(wordCount, adjacentPairs, pairsCount, neighbours, mostCommonNeighbour) where
 
 import Test.HUnit -- provides testing framework
 import PandP      -- provide sample text to play with (variable austin)
-
 
 -- DO NOT CHANGE THESE TYPES
 type Sentence = [String]
@@ -37,39 +24,36 @@ type WordTally = [(String, Int)]
 type Pairs = [(String, String)]
 type PairsTally = [((String, String), Int)]
 
-
-
-
-
-
-
 -- DO NOT CHANGE THE TYPE SIGNATURES FOR THESE FUNCTIONS
 
+
+
+
+------------------------------------- UPPGIFT 1 -------------------------------------
 
 {- wordCount arguments
      Computes a tally of all the distinct words appearing in the document.
      PRE: 
      RETURNS: 
-     SIDE EFFECTS: 
      EXAMPLES: 
 -}
 
+
+--FINNS DET NÅGOT SÄTT ATT SLIPPA wordCountAcc? Att slå ihop den med wordCount? obs "concat doc"
 wordCount :: Document -> WordTally
 wordCount doc = wordCountAcc (concat doc)
 
 wordCountAcc :: Sentence -> WordTally
+
 wordCountAcc [] = []
 wordCountAcc doc@(x:xs) = 
-     countElement x doc : wordCountAcc (removeElement x doc)
-
-
-removeElement :: String -> Sentence -> Sentence
-removeElement el lst = filter (/= el) lst
-
+     countElement x doc : wordCountAcc (filter (/= x) doc)
 
 
 countElement :: (Eq a) => a -> [a] -> (a, Int)
 countElement e lst = countElementAcc e 0 lst 
+
+
 
 countElementAcc :: (Eq a) => a -> Int -> [a] -> (a, Int)
 countElementAcc e acc [] = (e, acc)
@@ -79,7 +63,7 @@ countElementAcc e acc (x:xs)
 
 
 
-
+------------------------------------- UPPGIFT 2 -------------------------------------
 
 {- adjacentPairs document
      Yields a list of all adjacent pairs of words appearing in the document, with duplicates present.
@@ -103,30 +87,24 @@ adjacentPairs (x:xs) = foo x ++ adjacentPairs xs
           foo [x] = []
           foo (x:xs) = (x, head xs) : foo xs
 
---KLAR--
 
 
 
 
-
+------------------------------------- UPPGIFT 3 -------------------------------------
 
 {- initialPairs Document
      Creates a list of all pairs of words appearing at the start of sentences in the document, with duplicates present.
-     PRE: length of sentences in Document are greather than 1 (solved)
-     RETURNS: 
-     SIDE EFFECTS: 
+     RETURNS: list of inital two words of each sentence, given that the sentence has more than one word
      EXAMPLES: 
+          initialPairs [["but","it","is"],["returned","she"]] == [("but","it"),("returned","she")]
+          initialPairs [["but","it","is"],["returned","she"],["wow"],["this","works","indeed"]] == [("but","it"),("returned","she"),("this","works")]
 -}
 initialPairs :: Document -> Pairs
+--VARIANT: length Document
 initialPairs [] = []
 initialPairs ([_]:xs) = initialPairs xs
 initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
---KLAR--
-
-
-
-
-
 
 
 {- finalPairs arguments
@@ -137,26 +115,15 @@ initialPairs (x:xs) = (head x, x !! 1) : initialPairs xs
      EXAMPLES: 
 -}
 finalPairs :: Document -> Pairs
+--VARIANT: length Document
 finalPairs [] = []
--- finalParis (x:lst) = initialPairs (reverse x) ++ finalPairs lst
-finalPairs (x:lst) = foo7 x ++ finalPairs lst
-     where
-          foo7 :: Sentence -> Pairs
-          foo7 [] = []
-          foo7 lst
-               | length lst == 1 = []
-               | otherwise = [(lst !! (length lst -2), lst !! (length lst - 1))]
---KLAR--
+finalPairs ([_]:xs) = finalPairs xs
+finalPairs (x:xs) = (x !! (length x -2), x !! (length x - 1)) : finalPairs xs
 
 
 
 
-
-
-
-
-
-
+------------------------------------- UPPGIFT 4 -------------------------------------
 
 {- pairsCount arguments
      Computes a tally of all pairs.
@@ -167,42 +134,27 @@ finalPairs (x:lst) = foo7 x ++ finalPairs lst
 -}
 
 pairsCount :: Pairs -> PairsTally
+--VARIANT: length Pairs
 pairsCount [] = []
-pairsCount (x:xs) = countElement' x (x:xs) : pairsCount (removeElement'' x xs)
+pairsCount (x:xs) = countPairs x (x:xs) : pairsCount [elem | elem <- xs, not (isEqual elem x)]
 
-removeElement'' :: Eq a => (a, a) -> [(a, a)] -> [(a, a)]
-removeElement'' _ [] = []
-removeElement'' el (x:xs)
-     | isEqual el x = removeElement'' el xs
-     | otherwise = x : removeElement'' el xs
-
-
-countElement' :: (Eq a) => (a, a) -> [(a,a)] -> ((a,a), Int)
-countElement' e lst = countElementAcc' e 0 lst 
-
-
-countElementAcc' :: (Eq a, Num t) => (a, a) -> t -> [(a, a)] -> ((a, a), t)
-countElementAcc' e acc [] = (e, acc)
-countElementAcc' e acc (x:xs)
-     | isEqual e x = countElementAcc' e (acc + 1) xs
-     | otherwise = countElementAcc' e acc xs
-
-
---LEVEL TVÅ - IDÈ GÖRA OM ISEQUAL OCH COUNTACC FÖR BÅDA!!
+countPairs :: (Eq a) => (a, a) -> [(a,a)] -> ((a,a), Int)
+countPairs e lst = countPairsAcc e 0 lst
+     where
+          countPairsAcc :: (Eq a, Num t) => (a, a) -> t -> [(a, a)] -> ((a, a), t)
+          countPairsAcc e acc [] = (e, acc)
+          countPairsAcc e acc (x:xs)
+               | isEqual e x = countPairsAcc e (acc + 1) xs
+               | otherwise = countPairsAcc e acc xs
 
 isEqual :: (Eq a) => (a, a) -> (a, a) -> Bool
-isEqual (a,b) (c,d) = (a==c && b == d) || (a == d && b == c)
+isEqual (a,b) (c,d) = (a == c && b == d) || (a == d && b == c)
 
 
 
 
 
-
-
-
-
-
-
+------------------------------------- UPPGIFT 5 -------------------------------------
 
 {- neighbours arguments
      Takes  a  tally  of pairs, such as computed by the pairsCount function, 
@@ -223,10 +175,7 @@ neighbours (((a,b),n):xs) str
 
 
 
-
-
-
-
+------------------------------------- UPPGIFT 6 -------------------------------------
 
 {- mostCommonNeighbhour arguments
      Returns the word that occurs most frequently with a given word, based on a tally of pairs.
@@ -238,7 +187,7 @@ neighbours (((a,b),n):xs) str
 mostCommonNeighbour :: PairsTally -> String -> Maybe String
 mostCommonNeighbour tally str = searchFun str tally 0 ""
 
-
+searchFun :: String -> PairsTally -> Int -> String -> Maybe String 
 searchFun _ [] 0 _ = Nothing
 searchFun _ [] _ maxWord = Just maxWord
 searchFun str (((a,b),num):xs) maxNum maxWord
@@ -246,24 +195,13 @@ searchFun str (((a,b),num):xs) maxNum maxWord
      | str == b && num > maxNum = searchFun str xs num a
      | otherwise = searchFun str xs maxNum maxWord
 
---[(("bear","big"),2),(("big","dog"),1),(("bear","animal"),2)] "big"
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+------------------------------------- TEST -------------------------------------
 -- Test Cases
--- feel free to add other test cases here. an independent set of
+-- feel free to add other test cases here an independent set of
 -- test cases will be used when grading your code
 
 -- wordCount
@@ -277,7 +215,6 @@ test3a = TestCase $ assertEqual "initialPairs" [("a","b")] (initialPairs [["a","
                       
 test3b = TestCase $ assertEqual "finalPairs" [("b","a")] (finalPairs [["a","b","a"],["c"]])
                       
-
 -- pairsCount
 test4 = TestCase $ assertBool "pairsCount simple" 
             (elem (("a","b"), 2) (pairsCount [("a","b"),("c","d"),("a","b")]))
