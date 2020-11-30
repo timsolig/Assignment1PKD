@@ -1,6 +1,6 @@
 {-
 ------------------------------------------------
-PROGRAMKONSTRUKTION & DATASTRUKTURER HT2020
+PROGRAM CONSTRCUTION & DATA STRUCTURES HT2020
 ASSIGNMENT 1
 
 Tim Solig
@@ -44,11 +44,16 @@ type Pairs = [(String, String)]
 -}
 type PairsTally = [((String, String), Int)]
 
+
+
+
+
+
 ------------------------------------- PROBLEM 1 -------------------------------------
 
 {- wordCount doc
      Computes a tally of all the distinct words appearing in the document.
-     RETURNS: first element is the word and the second element is the number of occurences, based on "doc".
+     RETURNS: First and second element are the words from "doc" and their number of occurrences in "doc" respectively.
      EXAMPLES:
           wordCount [["is","he","married","or","single"],["oh"]] == [("is",1),("he",1),("married",1),("or",1),("single",1),("oh",1)]
           wordCount [["This","is","an","example"],["An","example","that","works"]] == [("This",1),("is",1),("an",1),("example",2),("An",1),("that",1),("works",1)]
@@ -56,9 +61,11 @@ type PairsTally = [((String, String), Int)]
 wordCount :: Document -> WordTally
 wordCount doc = wordCountAcc (concat doc)
 
+
+
 {- wordCountAcc concatedDoc
      Computes a tally of all the distinct words appearing in the document.
-     RETURNS: First and second element is the words from "concatedDoc" and their number of occurrences in "concatedDoc" respectively.
+     RETURNS: First and second element are the words from "concatedDoc" and their number of occurrences in "concatedDoc" respectively.
      EXAMPLES:
           wordCountAcc ["is","he","married","or","single","oh"] == [("is",1),("he",1),("married",1),("or",1),("single",1),("oh",1)]
           wordCountAcc ["This","is","an","example","an","example","that","works"] == [("This",1),("is",1),("an",1),("example",2),("an",1),("that",1),("works",1)]
@@ -66,8 +73,10 @@ wordCount doc = wordCountAcc (concat doc)
 wordCountAcc :: [String] -> WordTally
 --VARIANT: length concatedDoc
 wordCountAcc [] = []
-wordCountAcc doc@(x : xs) =
+wordCountAcc doc@(x:_) =
   countElement x doc : wordCountAcc (filter (/= x) doc)
+
+
 
 {- countElement element list
     Gives the number of times an element occurs in a given list.
@@ -79,23 +88,27 @@ wordCountAcc doc@(x : xs) =
  -}
 countElement :: (Eq a) => a -> [a] -> (a, Int)
 countElement e lst = countElementOccurrence e 0 lst
-
-{- countElementOccurrence element occurrences list
-    Counts the occurrences of an element in a list
-    PRE: occurences == 0
-    RETURNS: First and second element are "element" and "occurrences" of "element" in "list" respectively.
-    EXAMPLES: countElementOccurrence "a" 0 ["this","is","a","list","with","a","element"] == ("a",2)
-              countElementOccurrence 1 0 [1,2,3,4] == (1,1)
-              countElementOccurrence (1,2) 0 [(1,2),(2,3)] == ((1,2),1)
- -}
-countElementOccurrence :: (Eq a) => a -> Int -> [a] -> (a, Int)
---VARIANT: length list
-countElementOccurrence e occ [] = (e, occ)
-countElementOccurrence e occ (x : xs)
-  | e == x = countElementOccurrence e (occ + 1) xs
-  | otherwise = countElementOccurrence e occ xs
+  where
+    {- countElementOccurrence element occurrences list
+        Counts the occurrences of an element in a list
+        RETURNS: First and second element are "element" and "occurrences" of "element" in "list" respectively.
+        EXAMPLES: countElementOccurrence "a" 0 ["this","is","a","list","with","a","element"] == ("a",2)
+                  countElementOccurrence 1 0 [1,2,3,4] == (1,1)
+                  countElementOccurrence (1,2) 0 [(1,2),(2,3)] == ((1,2),1)
+    -}
+    countElementOccurrence :: (Eq a) => a -> Int -> [a] -> (a, Int)
+    --VARIANT: length list
+    countElementOccurrence e occ [] = (e, occ)
+    countElementOccurrence e occ (x : xs)
+      | e == x = countElementOccurrence e (occ + 1) xs
+      | otherwise = countElementOccurrence e occ xs
 
 ------------------------------------------------------------------------------------
+
+
+
+
+
 
 ------------------------------------- PROBLEM 2 -------------------------------------
 
@@ -117,8 +130,8 @@ adjacentPairs [] = []
 adjacentPairs (x : xs) = pairsOfList x ++ adjacentPairs xs
   where
     {- pairsOfList sentence
-         Returns a pair of the two initial elements in a list
-         RETURNS: Tuple of the two initial elements in "sentence"
+         Returns all adjacent pairs of words appearing in a sentence, with duplicates present. 
+         RETURNS: Adjacent pairs of words in "sentence", including duplicates.
          EXAMPLES:
               pairsOfList ["This","is","an","example"] == [("This", "is"), ("is", "an"),("an", "example")]
     -}
@@ -130,10 +143,15 @@ adjacentPairs (x : xs) = pairsOfList x ++ adjacentPairs xs
 
 ------------------------------------------------------------------------------------
 
+
+
+
+
+
 ------------------------------------- PROBLEM 3 -------------------------------------
 
 {- initialPairs doc
-     Creates a list of all pairs of words appearing at the start of sentences in the document, with duplicates present.
+     Creates a list of all pairs of words appearing at the start of sentences of a document, with duplicates present.
      RETURNS: Inital two words of each sentence of "doc", given that the sentence has more than one word
      EXAMPLES:
           initialPairs [["but","it","is"],["returned","she"]] == [("but","it"),("returned","she")]
@@ -145,8 +163,10 @@ initialPairs [] = []
 initialPairs ([_] : xs) = initialPairs xs
 initialPairs ((y : z : _) : xs) = (y, z) : initialPairs xs
 
+
+
 {- finalPairs doc
-     Gives a list of all last two words in every sentence of a document.
+     Gives a list of all last two words appearing in the end of sentences of a document, with duplicates present.
      RETURNS: All pairs of words appearing at the end of each sentence of "doc", given that the sentence has more than one word.
      EXAMPLES:
           finalPairs [["this","is","a","sentence"], ["wow"], ["this","is","another","sentence"]] == [("a","sentence"),("another","sentence")]
@@ -159,6 +179,11 @@ finalPairs (x : xs) = (x !! (length x -2), x !! (length x - 1)) : finalPairs xs
 
 ------------------------------------------------------------------------------------
 
+
+
+
+
+
 ------------------------------------- PROBLEM 4 -------------------------------------
 {- pairsCount pairs
      Counts and computes a tally of pairs.
@@ -166,8 +191,7 @@ finalPairs (x : xs) = (x !! (length x -2), x !! (length x - 1)) : finalPairs xs
      EXAMPLES:
           pairsCount [("a", "pair"),("another", "pair"),("pair","a")] == [(("a","pair"),2),(("another","pair"),1)]
 -}
-
-pairsCount :: Pairs -> PairsTally
+pairsCount :: Pairs -> PairsTally 
 --VARIANT: length pairs
 pairsCount [] = []
 pairsCount (x : xs) = pairsCountAcc x 0 (x : xs) : pairsCount [elem | elem <- xs, not (isEqual elem x)]
@@ -181,10 +205,13 @@ pairsCount (x : xs) = pairsCountAcc x 0 (x : xs) : pairsCount [elem | elem <- xs
               pairsCountAcc ("a", "pair") 0 [] == (("a","pair"),0)
     -}
     pairsCountAcc :: (Eq a) => (a, a) -> Int -> [(a, a)] -> ((a, a), Int)
+    --VARIANT: length list
     pairsCountAcc e acc [] = (e, acc)
     pairsCountAcc e acc (x : xs)
       | isEqual e x = pairsCountAcc e (acc + 1) xs
       | otherwise = pairsCountAcc e acc xs
+
+
 
 {- isEqual tuple1 tuple2
      Disregarding the order, determines if two tuples have the same elements.
@@ -199,13 +226,19 @@ isEqual (a, b) (c, d) = (a == c && b == d) || (a == d && b == c)
 
 ------------------------------------------------------------------------------------
 
+
+
+
+
+
 ------------------------------------- PROBLEM 5 -------------------------------------
 
 {- neighbours tally string
      Gives all the words which are neighbours of a given word and the number of times that occurs.
-     RETURNS: First and second elements are neighbours of "string" and its' number of occurences respectively.
+     RETURNS: Neighbours of "string" and its' number of occurences in "tally" respectively.
      EXAMPLES: neighbours [(("bear","big"),2),(("big","dog"),1)] "big" == [("bear", 2),("dog",1)]
-               neighbours [] "big" = []
+               neighbours [(("bear","big"),2),(("big","dog"),1),(("bear","dog"),5)] "big" == [("bear", 2),("dog",1)]
+               neighbours [] "big" == []
 -}
 neighbours :: PairsTally -> String -> WordTally
 --VARIANT: length tally
@@ -217,34 +250,45 @@ neighbours (((a, b), n) : xs) str
 
 ------------------------------------------------------------------------------------
 
+
+
+
+
+
 ------------------------------------- PROBLEM 6 -------------------------------------
 
 {- mostCommonNeighbour tally string
-     Gives most common neighbour of a word in a tally.
-     RETURNS: The word which is the most common neighbour to "string" in "tally".
+     Gives the word which is the most common neighbour of a word in a tally.
+     RETURNS: the most common neighbour to "string" in "tally". Nothing if it does not occur
      EXAMPLES: mostCommonNeighbour [(("bear","big"),2),(("big","dog"),1)] "big" == Just "bear"
                mostCommonNeighbour [(("bear","big"),1),(("big","dog"),5),(("dog","bear"),50)] "big" == Just "dog"
                mostCommonNeighbour [] "boy" == Nothing
 -}
 mostCommonNeighbour :: PairsTally -> String -> Maybe String
 mostCommonNeighbour tally str = mostCommonNeighbourAcc str tally 0 ""
-
-{- mostCommonNeighbourAcc tally string maxFreq maxWord
-     Gives most common neighbour of a word in a tally.
-     RETURNS: The word which is the most common neighbour to "string" in "tally".
-     EXAMPLES:
-          mostCommonNeighbourAcc
--}
-mostCommonNeighbourAcc :: String -> PairsTally -> Int -> String -> Maybe String
---VARIANT: length tally
-mostCommonNeighbourAcc _ [] 0 _ = Nothing
-mostCommonNeighbourAcc _ [] _ maxWord = Just maxWord
-mostCommonNeighbourAcc str (((a, b), num) : xs) maxNum maxWord
-  | str == a && num > maxNum = mostCommonNeighbourAcc str xs num b
-  | str == b && num > maxNum = mostCommonNeighbourAcc str xs num a
-  | otherwise = mostCommonNeighbourAcc str xs maxNum maxWord
+  where
+    {- mostCommonNeighbourAcc tally string maxFreq maxWord
+        Gives the word which is the most common neighbour of a word in a tally.
+        PRE: maxFreq
+        RETURNS: the neighbour "maxWord" with highest occurrency "maxFreq", to "string" in "tally". Nothing if it does not occur.
+        EXAMPLES:
+              mostCommonNeighbourAcc "big" [(("bear","big"),1),(("big","dog"),5),(("dog","bear"),50)] 0 "" == Just "dog"
+              mostCommonNeighbourAcc "bear" [(("bear","big"),1),(("big","dog"),5),(("dog","bear"),50)] 0 "" == Just "dog"
+    -}
+    mostCommonNeighbourAcc :: String -> PairsTally -> Int -> String -> Maybe String
+    --VARIANT: length tally
+    mostCommonNeighbourAcc _ [] 0 _ = Nothing
+    mostCommonNeighbourAcc _ [] _ maxWord = Just maxWord
+    mostCommonNeighbourAcc str (((a, b), num) : xs) maxNum maxWord
+      | str == a && num > maxNum = mostCommonNeighbourAcc str xs num b
+      | str == b && num > maxNum = mostCommonNeighbourAcc str xs num a
+      | otherwise = mostCommonNeighbourAcc str xs maxNum maxWord
 
 ------------------------------------------------------------------------------------
+
+
+
+
 
 ------------------------------------- TEST -------------------------------------
 -- Test Cases
